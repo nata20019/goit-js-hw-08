@@ -3,16 +3,16 @@ import { galleryItems } from './gallery-items';
 // Change code below this line
 
 console.log(galleryItems);
-// Описаний в документації
+// Documented in the documentation
 import SimpleLightbox from 'simplelightbox';
-// Додатковий імпорт стилів
+// Additional import of styles
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryList = document.querySelector('.gallery');
 const markupItems = galleryItems
   .map(
     item => `<li class="gallery__item">
-  <a class="gallery__link" href="large-image.jpg">
+  <a class="gallery__link" href="${item.original}">
     <img
       class="gallery__image"
       src="${item.preview}"
@@ -43,20 +43,11 @@ function onclick(evt) {
       document.removeEventListener('keydown', escCloseModal);
     },
   };
-  const instance = basicLightbox.create(
-    `
-	 <img
-      class="gallery__image"
-      src="${urlImage}"
-           alt="${urlImage}"
-    />
-`,
-    option
-  );
-  instance.show(() => console.log('lightbox now visible'));
+  const instance = new SimpleLightbox(`.gallery a`, option);
+
   function escCloseModal(evt) {
     if (evt.code === 'Escape') {
-      instance.close(() => console.log('lightbox not visible anymore'));
+      instance.close();
     }
   }
 }

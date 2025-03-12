@@ -31,5 +31,7 @@ function populateTextarea() {
     const parsedMessage = JSON.parse(saveMessage);
     input.value = parsedMessage.email;
     textarea.value = parsedMessage.message;
+
+    console.log(parsedMessage);
   }
 }
