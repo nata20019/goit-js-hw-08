@@ -12,8 +12,14 @@ populateTextarea();
 
 function onFormSubmit(evt) {
   evt.preventDefault();
-  form.reset();
+  const saveMessage = localStorage.getItem(localStorageKey);
+  const parsedMessage = JSON.parse(saveMessage);
+
+  input.value = parsedMessage.email;
+  textarea.value = parsedMessage.message;
+  console.log(parsedMessage);
   localStorage.removeItem(localStorageKey);
+  form.reset();
 }
 
 function onTextInput(evt) {
@@ -21,17 +27,12 @@ function onTextInput(evt) {
   const email = input.value;
   const message = textarea.value;
   localStorage.setItem(localStorageKey, JSON.stringify({ email, message }));
-
-  const formData = { email, message };
-  console.log(formData);
 }
 function populateTextarea() {
   const saveMessage = localStorage.getItem(localStorageKey);
+  const parsedMessage = JSON.parse(saveMessage);
   if (saveMessage) {
-    const parsedMessage = JSON.parse(saveMessage);
     input.value = parsedMessage.email;
     textarea.value = parsedMessage.message;
-
-    console.log(parsedMessage);
   }
 }
